@@ -53,8 +53,14 @@ Em programação orientada a objeto, os relacionamentos entre classes executam u
 High-level modules -> regras de negócio, código mais "puro", o código mais alto nível da aplicação, que não depende de detalhes de implementação. Exemplo: para fazer uma order, é necessário inserir no banco de dados, enviar um email, etc, mas não importa como essas ações são executadas. O high-level module seria o usecase `PlaceOrder`.
 Low-level modules -> detalhes de implementação, como o banco de dados, envio de email, etc. Exemplo: `DynamoDBOrderRepository`, `SQSGateway`, `SESGateway`.
 
-![DIP aplicado](dip.png)
+![DIP aplicado](docs/dip.png)
 
 ## Factory Pattern
 
 É um padrão de design que permite criar instâncias de objetos sem especificar a classe exata do objeto que será criado. O Factory Pattern define uma interface para criar objetos, mas deixa a implementação da criação de objetos para as classes filhas. O Factory Pattern é usado quando queremos criar um objeto sem expor a lógica de criação do objeto para o cliente.
+
+## Dependency Injection Container
+
+É onde vamos registrar todas as classes que queremos que sejam injetáveis, ou seja, que podem ser usadas em outros lugares. No nosso exemplo, o usecase `PlaceOrder` dependerá apenas do Dependency Injection Container (DIContainer), onde ele irá utilizar as dependências que foram registradas no DIContainer da maneira que for necessária. Nesse cenário, continuamos a usar a injeção de dependência, porém mudamos a estratégia que, ao invés de ser em um construtor, passamos a utilizar o container para fazermos as injeções. Um framework que faz isso é o NestJS. Um pattern que podemos usar para fazer isso é o **Registry**.
+
+![Dependency Injection Container](docs/dependency-injection-container.png)
