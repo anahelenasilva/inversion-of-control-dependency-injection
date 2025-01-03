@@ -42,9 +42,7 @@ export class Registry {
 
     const paramTypes: Constructor<any>[] = Reflect.getMetadata("design:paramtypes", service) ?? [];
 
-    const dependencies = paramTypes.map(constructor => {
-      return new constructor();
-    });
+    const dependencies = paramTypes.map(constructor => this.resolve(constructor));
 
     return new service(...dependencies);
   }
