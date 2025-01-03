@@ -1,4 +1,4 @@
-type Constructor<T> = new (...args: any) => T;
+import { Constructor } from "../types/utils";
 
 export class Registry {
   private readonly services: Map<string, Constructor<any>> = new Map();

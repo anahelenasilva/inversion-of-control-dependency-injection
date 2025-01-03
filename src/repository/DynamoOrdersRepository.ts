@@ -1,10 +1,14 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+
+import { Injectable } from "../di/Injectable";
 
 import { IOrdersRepository } from "../interfaces/repository/IOrdersRepository";
 
 import { Order } from "../entities/Order";
 
+@Injectable()
 export class DynamoOrdersRepository implements IOrdersRepository {
   private dynamodbDocumentClient: DynamoDBDocumentClient;
 
