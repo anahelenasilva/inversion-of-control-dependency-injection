@@ -2,6 +2,7 @@
   "name": "live059-ioc-di",
   "version": "1.0.0",
   "main": "src/main.ts",
+  "type": "commonjs",
   "author": "Ana Helena",
   "license": "MIT",
   "scripts": {
