@@ -1,11 +1,19 @@
 import fastify from "fastify";
 
-import { makePlaceOrder } from "./factories/makePlaceOrder";
+import { PlaceOrder } from "./useCases/PlaceOrder";
+import { container } from "./di/Container";
+import { DynamoOrdersRepository } from "./repository/DynamoOrdersRepository";
+import { SQSGateway } from "./gateways/SQSGateway";
+import { SESGateway } from "./gateways/SESGateway";
 
 const app = fastify();
 
 app.post("/orders", async (request, reply) => {
-  const placeOrder = makePlaceOrder();
+  const placeOrder = new PlaceOrder(
+    container.resolve(DynamoOrdersRepository),
+    container.resolve(SQSGateway),
+    container.resolve(SESGateway),
+  );
 
   const { orderId } = await placeOrder.execute();
 
