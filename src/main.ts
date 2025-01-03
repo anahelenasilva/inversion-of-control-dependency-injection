@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import fastify from "fastify";
 
 import { PlaceOrder } from "./useCases/PlaceOrder";

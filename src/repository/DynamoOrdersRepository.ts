@@ -8,14 +8,15 @@ import { IOrdersRepository } from "../interfaces/repository/IOrdersRepository";
 
 import { Order } from "../entities/Order";
 
+import { ILogGateway } from "../interfaces/gateways/ILogGateway";
+
 @Injectable()
 export class DynamoOrdersRepository implements IOrdersRepository {
-  private dynamodbDocumentClient: DynamoDBDocumentClient;
+  private client = DynamoDBDocumentClient.from(
+    new DynamoDBClient({ region: "us-east-1" })
+  );
 
-  constructor() {
-    const dynamoClient = new DynamoDBClient({ region: "us-east-1" });
-    this.dynamodbDocumentClient = DynamoDBDocumentClient.from(dynamoClient);
-  }
+  constructor(private readonly logGateway: ILogGateway) { }
 
   async create(order: Order): Promise<void> {
     const command = new PutCommand({
@@ -23,6 +24,10 @@ export class DynamoOrdersRepository implements IOrdersRepository {
       Item: order,
     });
 
-    await this.dynamodbDocumentClient.send(command);
+    await this.logGateway.log({
+      ...order,
+    });
+
+    await this.client.send(command);
   }
 }

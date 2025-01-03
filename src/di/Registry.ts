@@ -34,6 +34,12 @@ export class Registry {
       throw new Error(`"${name}" not found in registry`);
     }
 
+    const devModeOnly = Reflect.getMetadata("devModeOnly", service);
+
+    if (devModeOnly && process.env.NODE_ENV !== "development") {
+      throw new Error(`"${name}" should be used only in dev mode`);
+    }
+
     return new service();
   }
 }

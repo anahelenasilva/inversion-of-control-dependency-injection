@@ -64,3 +64,9 @@ Low-level modules -> detalhes de implementação, como o banco de dados, envio d
 É onde vamos registrar todas as classes que queremos que sejam injetáveis, ou seja, que podem ser usadas em outros lugares. No nosso exemplo, o usecase `PlaceOrder` dependerá apenas do Dependency Injection Container (DIContainer), onde ele irá utilizar as dependências que foram registradas no DIContainer da maneira que for necessária. Nesse cenário, continuamos a usar a injeção de dependência, porém mudamos a estratégia que, ao invés de ser em um construtor, passamos a utilizar o container para fazermos as injeções. Um framework que faz isso é o NestJS. Um pattern que podemos usar para fazer isso é o **Registry**.
 
 ![Dependency Injection Container](docs/dependency-injection-container.png)
+
+## Reflect
+
+É um objeto nativo do Javascript que é útil para manipular objetos, como por exemplo, validar se um objeto tem determinada(s) propriedade(s), recuperar as chaves de um objeto, setar uma propriedade em um objeto, etc.
+[Ref - Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
+[Ref - Reflect Metadata](https://www.npmjs.com/package/reflect-metadata)
