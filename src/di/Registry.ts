@@ -40,6 +40,12 @@ export class Registry {
       throw new Error(`"${name}" should be used only in dev mode`);
     }
 
-    return new service();
+    const paramTypes: Constructor<any>[] = Reflect.getMetadata("design:paramtypes", service) ?? [];
+
+    const dependencies = paramTypes.map(constructor => {
+      return new constructor();
+    });
+
+    return new service(...dependencies);
   }
 }
