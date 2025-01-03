@@ -1,0 +1,30 @@
+{
+  "name": "live059-ioc-di",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "author": "Ana Helena",
+  "license": "MIT",
+  "scripts": {
+    "tsc:watch": "tsc --watch",
+    "start": "node --watch dist/main.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.709.0",
+    "@aws-sdk/client-ses": "^3.709.0",
+    "@aws-sdk/client-sqs": "^3.709.0",
+    "@aws-sdk/lib-dynamodb": "^3.709.0",
+    "@types/node": "^22.10.2",
+    "eslint": "^9.16.0",
+    "fastify": "^5.1.0",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.16.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
+    "globals": "^15.13.0",
+    "typescript-eslint": "^8.18.0"
+  }
+}
