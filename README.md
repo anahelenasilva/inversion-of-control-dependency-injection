@@ -1,5 +1,3 @@
-# anotacoes para o post no blog
-
 # Inversion of Control, Dependency Injection e Dependency Inversion
 
 usecase vs services (to-do: melhorar essa escrita)
