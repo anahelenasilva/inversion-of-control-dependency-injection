@@ -70,3 +70,12 @@ Low-level modules -> detalhes de implementação, como o banco de dados, envio d
 É um objeto nativo do Javascript que é útil para manipular objetos, como por exemplo, validar se um objeto tem determinada(s) propriedade(s), recuperar as chaves de um objeto, setar uma propriedade em um objeto, etc.
 [Ref - Reflect](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
 [Ref - Reflect Metadata](https://www.npmjs.com/package/reflect-metadata)
+
+Uso do Reflact para registrar as dependências no DIContainer e também fazer a inversão de dependência. O código fica no Registry e é necessário registrar as dependências no DIContainer (`src/di/container.ts`).
+
+## Ferramentas que cuidam da injeção de dependência
+
+[typescript-ioc](https://www.npmjs.com/package/typescript-ioc)
+[typedi](https://www.npmjs.com/package/typedi)
+[InversifyJS](https://github.com/inversify/InversifyJS)
+[tsyringe](https://www.npmjs.com/package/tsyringe/v/2.1.1) <- mais famoso
