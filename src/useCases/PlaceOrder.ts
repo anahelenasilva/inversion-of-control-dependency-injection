@@ -4,11 +4,13 @@ import { IOrdersRepository } from "../interfaces/repository/IOrdersRepository";
 
 import { IQueueGateway } from "../interfaces/gateways/IQueueGateway";
 import { IEmailGateway } from "../interfaces/gateways/IEmailGateway";
+import { Inject } from "../di/Inject";
 
 export class PlaceOrder {
-  constructor(private readonly ordersRepository: IOrdersRepository,
-    private readonly queueGateway: IQueueGateway,
-    private readonly emailGateway: IEmailGateway) { }
+  constructor(
+    @Inject("OrdersRepository") private readonly ordersRepository: IOrdersRepository,
+    @Inject("QueueGateway") private readonly queueGateway: IQueueGateway,
+    @Inject("EmailGateway") private readonly emailGateway: IEmailGateway) { }
 
   async execute() {
     const customerEmail = "ana@teste.com";

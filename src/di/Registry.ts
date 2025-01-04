@@ -15,35 +15,38 @@ export class Registry {
     return this.instance;
   }
 
-  register<T>(implementation: Constructor<T>) {
-    const name = implementation.name;
-
-    if (this.services.has(name)) {
-      throw new Error(`"${name}" is already registered`);
+  /**
+   *
+   * @param implementationId -> identifier of the implementation; usually the name of the implementation, the implementation identifier inside the container
+   * @param implementation
+   */
+  register<T>(implementationId: string, implementation: Constructor<T>) {
+    if (this.services.has(implementationId)) {
+      throw new Error(`"${implementationId}" is already registered`);
     }
 
-    this.services.set(name, implementation);
+    this.services.set(implementationId, implementation);
   }
 
-  resolve<T>(implementation: Constructor<T>): T {
-    const name = implementation.name;
+  resolve<T>(implementationId: string): T {
+    const implementation = this.services.get(implementationId);
 
-    const service = this.services.get(name);
-
-    if (!service) {
-      throw new Error(`"${name}" not found in registry`);
+    if (!implementation) {
+      throw new Error(`"${implementationId}" not found in registry`);
     }
 
-    const devModeOnly = Reflect.getMetadata("devModeOnly", service);
+    const paramTypes: any[] = Reflect.getMetadata("design:paramtypes", implementation) ?? [];
 
-    if (devModeOnly && process.env.NODE_ENV !== "development") {
-      throw new Error(`"${name}" should be used only in dev mode`);
-    }
+    const dependencies = paramTypes.map((_, index) => {
+      const dependencyId = Reflect.getMetadata(`inject:${index}`, implementation);
 
-    const paramTypes: Constructor<any>[] = Reflect.getMetadata("design:paramtypes", service) ?? [];
+      if (!dependencyId) {
+        throw new Error(`Dependency not found for index ${index}`);
+      }
 
-    const dependencies = paramTypes.map(constructor => this.resolve(constructor));
+      return this.resolve(dependencyId);
+    });
 
-    return new service(...dependencies);
+    return new implementation(...dependencies);
   }
 }
